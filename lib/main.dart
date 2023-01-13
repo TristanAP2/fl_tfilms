@@ -1,6 +1,5 @@
-import 'package:fl_tfilms/screens/details_screen.dart';
-import 'package:fl_tfilms/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fl_tfilms/screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
