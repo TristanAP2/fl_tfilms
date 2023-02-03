@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fl_tfilms/models/models.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  const MovieSlider({super.key, required this.popularMovies});
+
+  // instancia de movies
+  final List<Popular> popularMovies;
 
   @override
   Widget build(BuildContext context) {

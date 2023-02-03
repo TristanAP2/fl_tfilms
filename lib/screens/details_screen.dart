@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fl_tfilms/widgets/widgets.dart';
+import 'package:fl_tfilms/models/models.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       // Un tipo de appbar
       body: CustomScrollView(
@@ -28,11 +29,15 @@ class DetailsScreen extends StatelessWidget {
 class _CustomAppBar extends StatelessWidget {
   const _CustomAppBar({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    //Recibimos por los argumentos un objeto result
+    final Result movie = ModalRoute.of(context)!.settings.arguments as Result;
+
     return SliverAppBar(
       expandedHeight: 200,
-      
+      automaticallyImplyLeading: true,
       //Comportamiento al hacer scroll
       floating: true,
       pinned: true,
@@ -45,11 +50,11 @@ class _CustomAppBar extends StatelessWidget {
           width: double.infinity,
           alignment: Alignment.bottomCenter,
           color: Colors.black38,
-          child: Text('movie.title', style: TextStyle(fontSize: 16),),
+          child: Text(movie.title, style: TextStyle(fontSize: 16),),
         ),
         background: FadeInImage(
                 placeholder: AssetImage('assets/loading.gif'), 
-                image: NetworkImage('https://avatar.amuniversal.com/user_avatars/avatars_gocomicsver3/1241000/1241766/spongebob-300x400.jpg'),
+                image: NetworkImage(movie.fullPosterImg),
                 fit: BoxFit.cover,
               ),
       ),
@@ -60,34 +65,35 @@ class _CustomAppBar extends StatelessWidget {
 
 class _InfoPelicula extends StatelessWidget {
   const _InfoPelicula({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.jpg'), 
-              image: NetworkImage('https://avatar.amuniversal.com/user_avatars/avatars_gocomicsver3/1241000/1241766/spongebob-300x400.jpg'),
-              width: 125,
-              fit: BoxFit.cover,
+    //Recibimos por los argumentos un objeto result
+    final Result movie = ModalRoute.of(context)!.settings.arguments as Result;
+    return Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: AssetImage('assets/no-image.jpg'),
+                  image: NetworkImage(movie.fullPosterImg),
+                  height: 180,
+                  width: 120,
+                  fit: BoxFit.cover,
+                  ),
+                ),
             ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Titulo',
+              Text(
+                movie.title,
                 style: Theme.of(context).textTheme.headline5,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              Text('Subtitulo',
+              Text(movie.releaseDate.year.toString(),
                 style: Theme.of(context).textTheme.subtitle1,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -103,8 +109,7 @@ class _InfoPelicula extends StatelessWidget {
           )
           
         ],
-      ),
-    );
+      );
   }
 }
 class _Overview extends StatelessWidget {
@@ -112,9 +117,12 @@ class _Overview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final Result movie = ModalRoute.of(context)!.settings.arguments as Result;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Text('Et commodo non non consectetur consectetur Lorem eu proident ullamco exercitation sit consequat. Veniam ut duis cillum esse. Voluptate consectetur deserunt excepteur deserunt tempor non ipsum. Pariatur sint aliquip consequat ut velit pariatur.',
+      child: Text(movie.overview,
         textAlign: TextAlign.justify,
         style: Theme.of(context).textTheme.subtitle1,
       ),

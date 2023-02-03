@@ -1,4 +1,5 @@
 import 'package:fl_tfilms/providers/movies_provider.dart';
+import 'package:fl_tfilms/providers/popular_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_tfilms/screens/screens.dart';
 import 'package:fl_tfilms/theme/app_theme.dart';
@@ -14,6 +15,7 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MoviesProvider(), lazy: false),
+        ChangeNotifierProvider(create: (context) => PopularProvider(), lazy: false),
       ],
       child: const MyApp(),
     );
